@@ -22,8 +22,7 @@ def map_symbols(s):
 
 
 def change_roman_to_int(roman):
-    if "I" or "V" or "X" or "L"  or "C"  or "C" or "D" or "M" not in roman:
-         print("Invalid Output")
+
     if roman.count("V") > 1:
         print("Invalid Output")
     elif roman.count("L") > 1:
@@ -37,6 +36,8 @@ def change_roman_to_int(roman):
     elif roman.count("X") > 3:
         print("Invalid Output")
     else: 
+        if "I" or "V" or "X" or "L"  or "C"  or "C" or "D" or "M" not in roman:
+            pass
         ans = 0
         i = 0
 

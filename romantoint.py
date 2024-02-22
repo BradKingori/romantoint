@@ -47,7 +47,7 @@ def test_invalid_characters():
 
 
 if __name__ == "__main__":
-    print(roman_to_int("MCMXCV"))  # Output: 1994
+    print(roman_to_int("MCMXCV"))  # Output: 1995
     test_empty_string()
     test_single_character()
     test_multiple_characters()

@@ -1,71 +1,56 @@
-import unittest
+import unittest,pytest
+newmap = {"I": 1 , "V":5, "X":10,"L":50, "C":100, "D":500,"M":1000}
 
 
-# function to store the basic roman symbols
-def map_symbols(s):
-    if s == "I":
-        return 1
-    if s == "V":
-        return 5
-    if s == "X":
-        return 10
-    if s == "L":
-        return 50
-    if s == "C":
-        return 100
-    if s == "D":
-        return 500
-    if s == "M":
-        return 1000
-    return -1
-
-
-
-def change_roman_to_int(roman):
-
-    if roman.count("V") > 1:
-        print("Invalid Output")
-    elif roman.count("L") > 1:
-        print("Invalid Output")
-    elif roman.count("C") > 3:
-        print("Invalid Output")
-    elif roman.count("M") > 3:
-        print("Invalid Output")
-    elif roman.count("I") > 3:
-        print("Invalid Output")
-    elif roman.count("X") > 3:
-        print("Invalid Output")
-    else: 
-        if "I" or "V" or "X" or "L"  or "C"  or "C" or "D" or "M" not in roman:
-            pass
-        ans = 0
-        i = 0
-
-        while i < len(roman):
-            x1 = map_symbols(roman[i])
-
-            if i + 1 < len(roman):
-                x2 = map_symbols(roman[i + 1])
-                
-                if x1 >= x2:
-                    ans = ans + x1
-                    i = i + 1
-                else:
-                    ans = ans + x2 - x1
-                    i = i + 2
-                
-            else:
-                ans = ans + x1
-                i = i + 1
-
-        if ans == -1 :
-            return "No Such value Exists"
+def roman_to_int(s):
+    result = 0
+    for i in range(len(s)):
+        if i + 1 < len(s) and newmap[s[i]] < newmap[s[i+1]]:
+            result -= newmap[s[i]]
         else:
-            return ans
+            result += newmap[s[i]]
+    if result == -1 :
+        return "No Such value Exists"
+    return result
 
 
 
-# driver code
-r = input("Enter the roman numeral: ").upper()
-print("The integer equivalent is: ")
-print(change_roman_to_int(r))
+
+def test_empty_string():
+    assert roman_to_int("") == 0
+
+
+def test_single_character():
+    assert roman_to_int("I") == 1
+    assert roman_to_int("V") == 5
+    assert roman_to_int("X") == 10
+
+
+def test_multiple_characters():
+    assert roman_to_int("III") == 3
+    assert roman_to_int("IV") == 4
+    assert roman_to_int("XLIX") == 49
+
+
+def test_complex_cases():
+    assert roman_to_int("MCMXCIV") == 1994
+    assert roman_to_int("MDXL") == 1540
+
+
+def test_invalid_characters():
+    with pytest.raises(ValueError):
+        roman_to_int("IIII")
+    with pytest.raises(ValueError):
+        roman_to_int("VV")
+    with pytest.raises(ValueError):
+        roman_to_int("LL")
+
+
+if __name__ == "__main__":
+    print(roman_to_int("MCMXCV"))  # Output: 1994
+    test_empty_string()
+    test_single_character()
+    test_multiple_characters()
+    test_complex_cases()
+   # test_invalid_characters()
+

@@ -36,7 +36,7 @@ def test_subtractive_notation():
 # Test for subtractive notation
 def test_with_and_without_subtractive_notation():
     assert roman_to_int("XIV") == 14
-    assert roman_to_int("XIV") == 14
+    assert roman_to_int("XIX") == 19
 
 # Test for repetitive values
 def test_repetition():

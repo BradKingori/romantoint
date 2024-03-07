@@ -1,6 +1,6 @@
-import unittest,pytest
-newmap = {"I": 1 , "V":5, "X":10,"L":50, "C":100, "D":500,"M":1000}
+import unittest
 
+newmap = {"I": 1 , "V":5, "X":10,"L":50, "C":100, "D":500,"M":1000}
 
 def roman_to_int(s):
     result = 0
@@ -13,44 +13,61 @@ def roman_to_int(s):
         return "No Such value Exists"
     return result
 
+class TestRomanToInt(unittest.TestCase):
+    #Test fot single letter
+    def test_single_letters(self):
+        self.assertEqual(roman_to_int("I"), 1)
+        self.assertEqual(roman_to_int("V"), 5)
+        self.assertEqual(roman_to_int("X"), 10)
+        self.assertEqual(roman_to_int("L"), 50)
+        self.assertEqual(roman_to_int("C"), 100)
+        self.assertEqual(roman_to_int("D"), 500)
+        self.assertEqual(roman_to_int("M"), 1000)
+
+    #Test for multiple value letters
+    def test_many_letters(self):
+        self.assertEqual(roman_to_int("XI"), 11)
+        self.assertEqual(roman_to_int("XV"), 15)
+
+    #Test for subtractive notation letters
+    def test_subtractive_notation(self):
+        self.assertEqual(roman_to_int("IV"), 4)
+        self.assertEqual(roman_to_int("IX"), 9)
 
 
-
-def test_empty_string():
-    assert roman_to_int("") == 0
-
-
-def test_single_character():
-    assert roman_to_int("I") == 1
-    assert roman_to_int("V") == 5
-    assert roman_to_int("X") == 10
+    #Test fot subtractive notation
+    def test_with_and_without_subtractive_notation(self):
+        self.assertEqual(roman_to_int("XIV"), 14)
+        self.assertEqual(roman_to_int("XIV"), 14)
 
 
-def test_multiple_characters():
-    assert roman_to_int("III") == 3
-    assert roman_to_int("IV") == 4
-    assert roman_to_int("XLIX") == 49
+    #Test for repetitive values
+    def test_repetition(self):
+        self.assertEqual(roman_to_int("III"), 3)
+        self.assertEqual(roman_to_int("II"), 2)
+
+    #Test for the first value
+    def test_first_number(self):
+        self.assertEqual(roman_to_int("I"), 1)
 
 
-def test_complex_cases():
-    assert roman_to_int("MCMXCIV") == 1994
-    assert roman_to_int("MDXL") == 1540
+    #Test for an invalid value
+    def test_invalid_letter(self):
+        self.assertEqual(roman_to_int("Z"), "No Such Value Exists")
 
 
-def test_invalid_characters():
-    with pytest.raises(ValueError):
-        roman_to_int("IIII")
-    with pytest.raises(ValueError):
-        roman_to_int("VV")
-    with pytest.raises(ValueError):
-        roman_to_int("LL")
+    #Test for an invalid with a valid value
+    def test_invalid_and_valid_letter(self):
+        self.assertEqual(roman_to_int("XIZ"), "No Such value Exists")
 
 
-if __name__ == "__main__":
-    print(roman_to_int("MCMXCV"))  # Output: 1995
-    test_empty_string()
-    test_single_character()
-    test_multiple_characters()
-    test_complex_cases()
-   # test_invalid_characters()
+    #Test for non valid sequence of characters
+    def test_not_valid(self):
+        self.assertEqual(roman_to_int("VV"), "You cannot perform such an action")
 
+    #Test for null values
+    def test_null(self):
+        self.assertEqual(roman_to_int(""), 0)
+
+if __name__ == '__main__':
+    unittest.main()

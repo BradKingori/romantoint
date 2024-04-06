@@ -62,3 +62,13 @@ def test_not_valid():
 # Test for null values
 def test_null():
     assert roman_to_int("") == 0
+
+# The primary code to run the application
+#def romantointmain():
+#    roman_numeral = input("Enter a Roman numeral: ").upper()
+#    result = roman_to_int(roman_numeral)
+#    print(f"The integer value of {roman_numeral} is: {result}")
+
+#if __name__ == "__main__":
+#    romantointmain()
+
